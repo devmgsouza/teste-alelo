@@ -11,7 +11,6 @@ import { StorageService } from './core/storage.service';
 import { LoaderInterceptor } from './core/loader-interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from './components/home/home.component';
-
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
