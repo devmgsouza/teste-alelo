@@ -8,15 +8,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
- // {path: '', pathMatch: 'full', component: HomeComponent },
 
-  { path: '', pathMatch: 'full', component: HomeComponent,
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent,
     children: [
       //Categories
       { path: 'categories', component: CategoriesComponent},
      // { path: 'categories/register/:action/:id', component: ViewsRegisterComponent, data: {extraParameter: '15'} },
       //Lists
-      { path: 'lists', component: ListsComponent},
+      { path: 'lists',  component: ListsComponent},
      // { path: 'lists/register/:action/:id', component: UserRegisterComponent, data: {extraParameter: '4'} },
       //Items
       { path: 'items', component: ItemsComponent },

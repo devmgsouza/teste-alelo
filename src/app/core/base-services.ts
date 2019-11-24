@@ -1,5 +1,6 @@
 import { HttpHeaders, HttpClient, HttpResponse, HttpResponseBase} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 export class BaseService {
 
     protected baseUrl: string;
@@ -14,8 +15,9 @@ export class BaseService {
      constructor(
         private httpBase: HttpClient,
         private url: string,
+        private localStorage: StorageService
     ) {
-        //this.baseUrl = this.localStorage.getSessionValueFromKey('urlBase') + this.url;
+        this.baseUrl = this.localStorage.getSession() + this.url;
     }
 
 

@@ -1,4 +1,6 @@
+import { CategoriesService } from './categories.service';
 import { Component, OnInit } from '@angular/core';
+import { Categorie } from './categorie.model';
 
 @Component({
   selector: 'app-categories',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
 
-  constructor() { }
+  titleOfTable = 'List of Categories';
+  listOfContent: any;
+
+  constructor(
+    private categorieService: CategoriesService
+  ) { }
 
   ngOnInit() {
+    this.categorieService.findAll().subscribe(
+      response => {
+          this.listOfContent = response;
+      }, err => {
+         console.error(err);
+      }
+  );
+
   }
 
 }

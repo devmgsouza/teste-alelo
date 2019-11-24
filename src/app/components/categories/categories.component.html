@@ -1,3 +1,51 @@
-<p>
-  categories works!
-</p>
+<div class="main-card mb-3 card">
+    <div class="card-body"><h5 class="card-title">Categories</h5>
+      <form> 
+        <div class="form-row">
+          <div class="col-md-12">
+            <div class="position-relative form-group">
+                <input  name="tela" id="telaInput" placeholder="Search by name" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<app-grid [titleOfTable]="titleOfTable" 
+ [listOfContent]="listOfContent" > 
+
+
+  <thead>
+      <tr>
+        <th class="text-center">#id</th>
+        <th>Name</th>
+        <th>Observe</th>
+        <th class="text-center">Nome</th>
+        <th class="text-center">Ação</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor='let cat of listOfContent'>
+        <td class="text-center">{{cat.id}}</td>
+        <td>{{cat.name}}</td>
+        <td>{{cat.observe}}</td>
+        <td class="text-center">{{cat.nome}}</td>
+       
+        <td class="text-center">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(cat.id)">
+            Alterar
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="delete(fav)" >
+            Apagar
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" (click)="showDetails(cat.id)">
+            Detalhes
+          </button>
+
+        </td>
+      </tr>
+  </tbody>
+
+  
+  </app-grid>
