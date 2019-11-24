@@ -1,14 +1,17 @@
-import { GridComponent } from './grid/grid.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgModule } from '@angular/core';
+import { GridComponent } from './grid/grid.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BoolPipePipe } from './pipe/bool-pipe.pipe';
+
 
 @NgModule({
   declarations: [
-    GridComponent
+    GridComponent,
+    BoolPipePipe
   ],
   imports: [
     CommonModule,
@@ -17,7 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     RouterModule,
   ], exports: [
-    GridComponent
+    GridComponent, BoolPipePipe
   ]
 })
 export class UtilsModule { }

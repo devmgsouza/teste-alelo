@@ -1,0 +1,57 @@
+<div class="main-card mb-3 card">
+    <div class="card-body"><h5 class="card-title">{{title}}</h5>
+      <form [formGroup]="formItem" class="needs-validation" novalidate> 
+        
+        
+        <div class="position-relative form-group form-row">
+
+          <div class="col-md-12">
+            <label for="name">Name</label>
+            <div class="input-group mb-3 position-relative form-group">
+                <input name="name" formControlName="name" id="name" placeholder="" type="text"
+                class="form-control input-required">
+            </div>
+          </div>
+        </div>
+        <div class="position-relative form-group form-row" formGroupName="listId">
+
+          <div class="col-md-6">
+              <div class="position-relative form-group">
+                  <label for="categorie">Categories</label>
+                  <select  formControlName="itemId" type="select" id="categorie" name="categorie" (change)="findLists()" class="custom-select input-required">
+                      <option *ngFor="let obj of listOfCategories" [value]="obj.id">{{obj.name}}</option>
+                </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="listId">Lists</label>
+                    <select  formControlName="id" type="select" id="listId" name="listId" class="custom-select input-required">
+                        <option *ngFor="let obj of listOfLists" [value]="obj.id">{{obj.name}}</option>
+                  </select>
+                  </div>
+              </div>
+        </div>
+
+        <div class="position-relative form-check form-group">
+            <input name="check" formControlName="done" id="exampleCheck"  type="checkbox" class="form-check-input">
+            <label for="exampleCheck" class="form-check-label" >Done</label>
+        </div>
+       
+
+
+
+
+
+
+
+        <div class="form-row ">
+          <button class="mt-2 btn-space-r btn btn-primary" [disabled]="readOnly" (click)="save()">Save</button>
+          <button class="mt-2 btn-space-l btn btn-primary" (click)="no()">Cancel</button>
+      </div>
+
+      </form>
+    </div>
+  </div>
+  

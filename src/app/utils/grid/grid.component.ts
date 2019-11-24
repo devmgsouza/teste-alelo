@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/core/base-component';
 
@@ -12,6 +12,8 @@ export class GridComponent extends BaseComponent implements OnInit {
 
   @Input() listOfContent:  any[] = [];
   @Input() titleOfTable: string;
+
+  @Output() newItemButton: EventEmitter<number> = new EventEmitter<number>();
 
 
   constructor(
@@ -37,5 +39,11 @@ export class GridComponent extends BaseComponent implements OnInit {
     });
     this.maxResult = +this.numberOfResultsArray[0].minValue;
   */
+  }
+
+
+
+  add() {
+    this.newItemButton.emit(0);
   }
 }

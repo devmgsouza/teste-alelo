@@ -1,3 +1,71 @@
-<p>
-  lists works!
-</p>
+<div class="main-card mb-3 card">
+    <div class="card-body"><h5 class="card-title">Lists</h5>
+    <form [formGroup]="formList" class="needs-validation" novalidate> 
+
+
+      <div class="col-md-4">
+          <div class="position-relative form-group">
+            <label for="categorie">Select a Category:</label>
+            <select  formControlName="idCategorie" type="select" id="categorie" name="categorie" (change)="findLists()" class="custom-select input-required">
+                <option *ngFor="let obj of listOfCategories" [value]="obj.id">{{obj.name}}</option>
+          </select>
+          </div>
+          
+          <!-- div  *ngIf="formList.get('idCategorie').invalid && formList.get('idCategorie').touched">
+              <div *ngIf="formList.get('idCategorie').errors.required">
+                Field Required
+              </div>
+            </div -->
+      
+      
+        </div>
+      </form>
+        
+            <div class="col-md-12">
+                <label for="lists">Filter:</label>
+              <div class="position-relative form-group">
+                  <input  name="lists" id="lists" placeholder="Search by name" type="text" class="form-control">
+              </div>
+            </div>
+          
+
+        
+      </div>
+  
+
+
+<app-grid [titleOfTable]="titleOfTable" 
+ [listOfContent]="listOfContent"
+ (newItemButton)="addNewItem($event)"> 
+
+
+  <thead>
+      <tr>
+        <th class="text-center">#id</th>
+        <th class="col-">Name</th>
+        <th class="text-center">List</th>
+        <th class="text-center">Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor='let list of listOfContent'>
+        <td class="text-center">{{list.id}}</td>
+        <td class="col-">{{list.name}}</td>
+        <td class="text-center">lista</td>
+        <td class="text-center">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(list)">
+            Update
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="delete(list)" >
+            Delete
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" (click)="showDetails(list)">
+            Details
+          </button>
+
+        </td>
+      </tr>
+  </tbody>
+
+  
+  </app-grid>
