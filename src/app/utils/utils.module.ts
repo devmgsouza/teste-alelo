@@ -7,13 +7,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BoolPipePipe } from './pipe/bool-pipe.pipe';
 import { FilterPipe } from './pipe/filter.pipe';
+import { NullSearchComponent } from './null-search/null-search.component';
 
 
 @NgModule({
   declarations: [
     GridComponent,
     BoolPipePipe,
-    FilterPipe
+    FilterPipe,
+    NullSearchComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,7 @@ import { FilterPipe } from './pipe/filter.pipe';
     FormsModule,
     RouterModule,
   ], exports: [
-    GridComponent, BoolPipePipe, FilterPipe
+    GridComponent, BoolPipePipe, FilterPipe, NullSearchComponent
   ]
 })
 export class UtilsModule { }

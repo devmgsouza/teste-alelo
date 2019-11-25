@@ -18,10 +18,13 @@ export class ItemsComponent implements OnInit {
   titleOfTable = 'List of Items';
   listOfContent: any;
   listOfCategories: any;
-  listOfItems: any;
+  listOfLists: any;
   categorieId: string;
-
+  readOnly = true;
+  listReadOnly = true;
   formItems: FormGroup;
+  pesquisaVazia: boolean = false;
+  hasContent: boolean = false;
 
   constructor(
     private listsService: ListsService,
@@ -46,11 +49,18 @@ export class ItemsComponent implements OnInit {
 
   }
 
+
   findLists() {
     this.listsService.findAll(this.formItems.get('idCategorie').value).subscribe(
       response => {
-          this.listOfItems = response;
+          this.listOfLists = response;
           this.listOfContent = [];
+
+          if (this.listOfLists.length === 0) {
+            this.readOnly = true;
+            this.pesquisaVazia = true;
+            this.hasContent = false;
+          }
       }, err => {
          console.error(err);
       });
@@ -60,20 +70,20 @@ export class ItemsComponent implements OnInit {
     this.itemsService.findAll(this.formItems.get('idCategorie').value, this.formItems.get('idList').value).subscribe(
       response => {
           this.listOfContent = response;
+          if (this.listOfContent.length > 0) {
+            this.readOnly = false;
+            this.hasContent = true;
+            this.pesquisaVazia = false;
+          } else {
+            this.readOnly = true;
+            this.hasContent = false;
+            this.pesquisaVazia = true;
+          }
       }, err => {
          console.error(err);
       });
   }
 
-
-
-
-  createItem() {
-    this.formItems = this.formBuilder.group({
-       idCategorie: [Validators.required ],
-       idList: [Validators.required ]
-    });
-  }
 
 
 
@@ -87,7 +97,7 @@ export class ItemsComponent implements OnInit {
       }
     ).catch(
       err => {
-        if (err !== 0) {
+       if (err !== 0 && err !== 1) {
           console.error(err);
           this.alertService.danger('Cannot insert a new Item. For more informations, look on the console.');
         }
@@ -107,7 +117,7 @@ export class ItemsComponent implements OnInit {
       }
     ).catch(
       err => {
-        if (err !== 0) {
+       if (err !== 0 && err !== 1) {
           console.error(err);
           this.alertService.danger('Cannot update this Item. For more informations, look on the console.');
         }
@@ -122,7 +132,9 @@ export class ItemsComponent implements OnInit {
       }
     ).catch(
       err => {
-        console.error(err);
+        if (err !== 0 && err !== 1) {
+          console.error(err);
+        }
       }
     );
   }
@@ -144,11 +156,20 @@ export class ItemsComponent implements OnInit {
         }
     ).catch(
       err => {
-        if (err !== 0) {
+       if (err !== 0 && err !== 1) {
           this.alertService.danger('Cannot delete this item. For more informations, look on the console.');
           console.error(err);
         }
     });
   }
+
+
+  createItem() {
+    this.formItems = this.formBuilder.group({
+       idCategorie: [Validators.required ],
+       idList:  [Validators.required ]
+    });
+  }
+
 
 }

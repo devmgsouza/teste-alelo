@@ -20,8 +20,8 @@ export class ListsService  extends BaseService {
 
 
 
-   findAll(id: any): Observable<List> {
-         return this.httpClient.get<List>(this.baseUrl + '/' + id + '/lists', this.httpOptions);
+   findAll(id: any): Observable<List[]> {
+         return this.httpClient.get<List[]>(this.baseUrl + '/' + id + '/lists', this.httpOptions);
    }
 
 

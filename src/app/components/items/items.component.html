@@ -1,11 +1,11 @@
-<div class="main-card mb-3 card">
-    <div class="card-body"><h5 class="card-title">Items</h5>
+<div class="main-card mb-3 card mt-5">
+    <div class="card-body"><h5 class="card-title">Search all Items</h5>
     <form [formGroup]="formItems" class="needs-validation" novalidate> 
       <div class="row col-12">
         <div class="col-md-4">
             <div class="position-relative form-group">
               <label for="categorie">Categories</label>
-              <select  formControlName="idCategorie" type="select" id="categorie" name="categorie" (change)="findLists()" class="custom-select input-required">
+              <select  formControlName="idCategorie" type="select" id="categorie" name="categorie" (change)="findLists()"  class="custom-select input-required">
                   <option *ngFor="let obj of listOfCategories" [value]="obj.id">{{obj.name}}</option>
             </select>
             </div>
@@ -23,8 +23,8 @@
       <div class="col-md-4">
           <div class="position-relative form-group">
             <label for="categorie">Lists</label>
-            <select  formControlName="idList" type="select" id="categorie" name="categorie" (change)="findItems()" class="custom-select input-required">
-                <option *ngFor="let obj of listOfItems" [value]="obj.id">{{obj.name}}</option>
+            <select  formControlName="idList" type="select" id="categorie" name="categorie" (change)="findItems()" class="custom-select input-required form-control">
+                <option *ngFor="let obj of listOfLists" [value]="obj.id">{{obj.name}}</option>
           </select>
           </div>
           
@@ -43,7 +43,7 @@
             <div class="col-md-12">
                 <label for="items">Filter:</label>
               <div class="position-relative form-group">
-                  <input  [(ngModel)]="searchText" name="items" id="items" placeholder="Search by name" type="text" class="form-control">
+                  <input  [(ngModel)]="searchText" name="items" id="items" placeholder="Search by name" type="text" class="form-control" [readOnly]="readOnly">
               </div>
             </div>
           
@@ -55,7 +55,8 @@
 
 <app-grid [titleOfTable]="titleOfTable" 
  [listOfContent]="listOfContent"
- (newItemButton)="addNewItem($event)"> 
+ (newItemButton)="addNewItem($event)"
+ *ngIf="hasContent != false"> 
 
 
   <thead>
@@ -88,3 +89,5 @@
 
   
   </app-grid>
+
+  <app-null-search [exibir]="pesquisaVazia"></app-null-search>

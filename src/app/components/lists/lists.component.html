@@ -1,5 +1,5 @@
-<div class="main-card mb-3 card">
-    <div class="card-body"><h5 class="card-title">Lists</h5>
+<div class="main-card mb-3 card mt-5">
+    <div class="card-body"><h5 class="card-title">Search All Lists</h5>
     <form [formGroup]="formList" class="needs-validation" novalidate> 
 
 
@@ -24,7 +24,7 @@
             <div class="col-md-12">
                 <label for="lists">Filter:</label>
               <div class="position-relative form-group">
-                  <input  [(ngModel)]="searchText" name="lists" id="lists" placeholder="Search by name" type="text" class="form-control">
+                  <input  [(ngModel)]="searchText" name="lists" id="lists" placeholder="Search by name" type="text" class="form-control" [readOnly]="readOnly">
               </div>
             </div>
           
@@ -36,7 +36,8 @@
 
 <app-grid [titleOfTable]="titleOfTable" 
  [listOfContent]="listOfContent"
- (newItemButton)="addNewItem($event)"> 
+ (newItemButton)="addNewItem($event)"
+ *ngIf="hasContent != false"> 
 
 
   <thead>
@@ -69,3 +70,4 @@
 
   
   </app-grid>
+  <app-null-search [exibir]="pesquisaVazia"></app-null-search>

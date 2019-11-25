@@ -21,8 +21,8 @@ export class CategoriesService  extends BaseService {
 
 
 
-   findAll(): Observable<Categorie> {
-         return this.httpClient.get<Categorie>(this.baseUrl, this.httpOptions);
+   findAll(): Observable<Categorie[]> {
+         return this.httpClient.get<Categorie[]>(this.baseUrl, this.httpOptions);
    }
 
 

@@ -48,7 +48,7 @@ export class CategoriesComponent implements OnInit {
       }
     ).catch(
       err => {
-        if (err !== 0) {
+        if (err !== 0 && err !== 1) {
           console.error(err);
           this.alertService.danger('Cannot insert a new Item. For more informations, look on the console.');
         }
@@ -67,7 +67,7 @@ export class CategoriesComponent implements OnInit {
       }
     ).catch(
       err => {
-        if (err !== 0) {
+        if (err !== 0 && err !== 1) {
           console.error(err);
           this.alertService.danger('Cannot update this Item. For more informations, look on the console.');
         }
@@ -82,7 +82,7 @@ export class CategoriesComponent implements OnInit {
       }
     ).catch(
       err => {
-        if (err !== 0) {
+        if (err !== 0 && err !== 1) {
           console.error(err);
         }
       }

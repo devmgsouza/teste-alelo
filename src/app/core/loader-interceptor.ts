@@ -10,9 +10,10 @@ import { finalize } from "rxjs/operators";
 export class LoaderInterceptor implements HttpInterceptor {
     constructor(public loader: NgxSpinnerService) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.loader.show();
+        setTimeout(() => {this.loader.show(); }, 0 );
         return next.handle(req).pipe(
             finalize(() =>  {
+
                 this.loader.hide();
             })
         );
