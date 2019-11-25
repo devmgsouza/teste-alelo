@@ -1,0 +1,93 @@
+<div class="main-card mb-3 card mt-5">
+    <div class="card-body"><h5 class="card-title">Search all Items</h5>
+    <form [formGroup]="formItems" class="needs-validation" novalidate> 
+      <div class="row col-12">
+        <div class="col-md-4">
+            <div class="position-relative form-group">
+              <label for="categorie">Categories</label>
+              <select  formControlName="idCategorie" type="select" id="categorie" name="categorie" (change)="findLists()"  class="custom-select input-required">
+                  <option *ngFor="let obj of listOfCategories" [value]="obj.id">{{obj.name}}</option>
+            </select>
+            </div>
+            
+            <div  *ngIf="formItems.get('idCategorie').invalid && formItems.get('idCategorie').touched">
+              <div *ngIf="formItems.get('idCategorie').errors.required">
+                Field Required
+              </div>
+            </div>
+      
+        
+        
+          </div>
+
+      <div class="col-md-4">
+          <div class="position-relative form-group">
+            <label for="categorie">Lists</label>
+            <select  formControlName="idList" type="select" id="categorie" name="categorie" (change)="findItems()" class="custom-select input-required form-control">
+                <option *ngFor="let obj of listOfLists" [value]="obj.id">{{obj.name}}</option>
+          </select>
+          </div>
+          
+          <div  *ngIf="formItems.get('idList').invalid && formItems.get('idList').touched">
+              <div *ngIf="formItems.get('idList').errors.required">
+                Field Required
+              </div>
+            </div>
+      
+      
+      
+        </div>
+      </div>
+      </form>
+        
+            <div class="col-md-12">
+                <label for="items">Filter:</label>
+              <div class="position-relative form-group">
+                  <input  [(ngModel)]="searchText" name="items" id="items" placeholder="Search by name" type="text" class="form-control" [readOnly]="readOnly">
+              </div>
+            </div>
+          
+
+        
+      </div>
+  
+
+
+<app-grid [titleOfTable]="titleOfTable" 
+ [listOfContent]="listOfContent"
+ (newItemButton)="addNewItem($event)"
+ > 
+
+
+  <thead>
+      <tr>
+        <th class="text-center">#id</th>
+        <th class="col-">Name</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Ação</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor='let item of listOfContent | filter : searchText'>
+        <td class="text-center">{{item.id}}</td>
+        <td class="col-">{{item.name}}</td>
+        <td class="text-center">{{item.done | boolPipe}}</td>
+        <td class="text-center">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(item)">
+            Alterar
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="delete(item)" >
+            Apagar
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" (click)="showDetails(item)">
+            Detalhes
+          </button>
+
+        </td>
+      </tr>
+  </tbody>
+
+  
+  </app-grid>
+
+  <app-null-search [exibir]="pesquisaVazia"></app-null-search>

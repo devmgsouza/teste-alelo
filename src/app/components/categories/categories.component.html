@@ -1,0 +1,52 @@
+<div class="main-card mb-3 card mt-5">
+    <div class="card-body"><h5 class="card-title">Search all Categories</h5>
+      <form> 
+        <div class="form-row">
+          <div class="col-md-12">
+              <label for="categories">Filter:</label>
+            <div class="position-relative form-group">
+                <input  [(ngModel)]="searchText" name="categories" id="categories" placeholder="Search by name" type="text" class="form-control">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<app-grid [titleOfTable]="titleOfTable" 
+ [listOfContent]="listOfContent" 
+ (newItemButton)="addNewItem($event)"
+ > 
+
+
+  <thead>
+      <tr>
+        <th class="text-center">#id</th>
+        <th class="col-">Name</th>
+        <th class="text-center">Observe</th>
+        <th class="text-center">Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor='let cat of listOfContent | filter : searchText'>
+        <td class="text-center">{{cat.id}}</td>
+        <td class="col-">{{cat.name}}</td>
+        <td class="text-center">{{cat.observe}}</td>
+       
+        <td class="text-center">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(cat.id)">
+            Update
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="delete(cat)" >
+            Delete
+          </button>
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" (click)="showDetails(cat.id)">
+            Details
+          </button>
+
+        </td>
+      </tr>
+  </tbody>
+
+  
+  </app-grid>

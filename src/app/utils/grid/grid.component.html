@@ -1,0 +1,26 @@
+
+ <div class="main-card mb-3 card">
+   
+        <div class="card-header">
+        <div class="row">
+          <div class="col-11">
+            <h4>{{titleOfTable}}</h4>
+          </div>
+            <button class="btn-icon btn-icon-only btn btn-outline-success" (click)="add()">
+              Add
+            </button>
+
+          </div>
+      </div>
+</div>
+
+
+     <div class="table-responsive">
+
+      <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+        <ng-content select="thead"></ng-content>
+        <ng-content select="tbody"></ng-content>
+      </table>
+    
+  
+    </div>
