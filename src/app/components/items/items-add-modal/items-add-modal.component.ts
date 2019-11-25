@@ -23,6 +23,7 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
   id: string;
   idCategory: string;
   idList: string;
+
   listOfCategories: any;
   listOfLists: any;
 
@@ -46,13 +47,24 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
       });
   }
 
-  findLists() {
-    this.listService.findAll(this.formItem.get('listId').get('itemId').value).subscribe(
-      response => {
-        this.listOfLists = response;
-      }, err => {
-         console.error(err);
-      });
+
+
+  findLists(idCat: any) {
+    if (idCat === 0) {
+      this.listService.findAll(this.formItem.get('listId').get('itemId').value).subscribe(
+        response => {
+          this.listOfLists = response;
+        }, err => {
+           console.error(err);
+        });
+    } else {
+      this.listService.findAll(idCat).subscribe(
+        response => {
+          this.listOfLists = response;
+        }, err => {
+           console.error(err);
+        });
+    }
   }
 
 
@@ -65,17 +77,19 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
         this.loadCategories();
         break;
       case '1':
-        this.loadData();
         this.title = 'Update a List';
         this.createItem(new Item(), new List());
         this.loadCategories();
+        this.findLists(this.idCategory);
+        this.loadData();
         break;
       case '2':
         this.readOnly = true;
-        this.loadData();
         this.title = 'Details';
         this.createItem(new Item(), new List());
         this.loadCategories();
+        this.findLists(this.idCategory);
+        this.loadData();
         break;
     }
   }
@@ -85,8 +99,8 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
        id: [{value: item.id}],
 
        listId: this.formBuilder.group({
-        id: [{value: list.id = null, disabled: this.readOnly }, [Validators.required]],
-        name: [{value: list.name = null, disabled: this.readOnly }],
+        id: [{value: list.id, disabled: this.readOnly }, [Validators.required]],
+        name: [{value: list.name , disabled: this.readOnly }],
         itemId: [{value: list.itemId, disabled: this.readOnly}, [Validators.required] ]
        }),
 
@@ -96,25 +110,24 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
   }
 
   loadData() {
-    // this.listService.findOne(this.idCategory, this.id).subscribe(
-    //   response => {
-    //       this.formItem.get('id').setValue(response.id);
-    //       this.formItem.get('itemId').setValue(response.itemId);
-    //       this.formItem.get('name').setValue(response.name);
-    //       this.formItem.get('name').setValue(response.name);
-    //   }, err => {
-    //       console.error(err);
-    //   }
-    // );
+
+    this.itemService.findOne(this.idCategory, this.idList, this.id).subscribe(
+      response => {
+           this.formItem.get('id').setValue(response.id);
+           this.formItem.get('name').setValue(response.name);
+           this.formItem.get('done').setValue(response.done);
+           this.formItem.get('listId').get('id').setValue(this.idList);
+           this.formItem.get('listId').get('itemId').setValue(this.idCategory);
+      }, err => {
+          console.error(err);
+      }
+    );
   }
   save() {
     if (this.formItem.valid) {
      const item = this.convertToSave(this.formItem);
 
       if (this.action === '0') {
-        console.log(this.formItem.get('listId').get('itemId').value);
-        console.log(this.formItem.get('listId').get('id').value);
-        console.log(JSON.stringify(item));
         this.itemService.saveItem(this.formItem.get('listId').get('itemId').value,
         this.formItem.get('listId').get('id').value, item).subscribe(
           response =>  {
@@ -122,10 +135,10 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
           }
         , err => {
           console.error(err);
+          this.alertService.danger(err.error);
         });
       } else if (this.action === '1') {
-        const id = this.formItem.get('id').value;
-       this.itemService.updateItem(this.formItem.get('listId').get('itemId').value, item.listId, item.id, item).subscribe(
+       this.itemService.updateItem(this.formItem.get('listId').get('itemId').value, item.listId, this.id, item).subscribe(
           response =>  {
             this.aModal.close(true);
           }
@@ -145,7 +158,6 @@ export class ItemsAddModalComponent extends BaseModal implements OnInit {
     item.done = formItem.get('done').value;
     item.listId = formItem.get('listId').get('id').value;
     item.name = formItem.get('name').value;
-    console.log(item);
     return item;
   }
 }

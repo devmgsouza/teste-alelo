@@ -5,7 +5,7 @@
           <div class="col-md-12">
               <label for="categories">Filter:</label>
             <div class="position-relative form-group">
-                <input  name="categories" id="categories" placeholder="Search by name" type="text" class="form-control">
+                <input  [(ngModel)]="searchText" name="categories" id="categories" placeholder="Search by name" type="text" class="form-control">
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
       </tr>
   </thead>
   <tbody>
-      <tr *ngFor='let cat of listOfContent'>
+      <tr *ngFor='let cat of listOfContent | filter : searchText'>
         <td class="text-center">{{cat.id}}</td>
         <td class="col-">{{cat.name}}</td>
         <td class="text-center">{{cat.observe}}</td>

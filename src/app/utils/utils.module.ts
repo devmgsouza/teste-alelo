@@ -6,12 +6,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BoolPipePipe } from './pipe/bool-pipe.pipe';
+import { FilterPipe } from './pipe/filter.pipe';
 
 
 @NgModule({
   declarations: [
     GridComponent,
-    BoolPipePipe
+    BoolPipePipe,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,7 @@ import { BoolPipePipe } from './pipe/bool-pipe.pipe';
     FormsModule,
     RouterModule,
   ], exports: [
-    GridComponent, BoolPipePipe
+    GridComponent, BoolPipePipe, FilterPipe
   ]
 })
 export class UtilsModule { }

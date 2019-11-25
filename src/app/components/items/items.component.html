@@ -43,7 +43,7 @@
             <div class="col-md-12">
                 <label for="items">Filter:</label>
               <div class="position-relative form-group">
-                  <input  name="items" id="items" placeholder="Search by name" type="text" class="form-control">
+                  <input  [(ngModel)]="searchText" name="items" id="items" placeholder="Search by name" type="text" class="form-control">
               </div>
             </div>
           
@@ -67,18 +67,18 @@
       </tr>
   </thead>
   <tbody>
-      <tr *ngFor='let list of listOfContent'>
-        <td class="text-center">{{list.id}}</td>
-        <td class="col-">{{list.name}}</td>
-        <td class="text-center">{{list.done | boolPipe}}</td>
+      <tr *ngFor='let item of listOfContent | filter : searchText'>
+        <td class="text-center">{{item.id}}</td>
+        <td class="col-">{{item.name}}</td>
+        <td class="text-center">{{item.done | boolPipe}}</td>
         <td class="text-center">
-          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(list.id)">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(item)">
             Alterar
           </button>
-          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="delete(list)" >
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" (click)="delete(item)" >
             Apagar
           </button>
-          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" (click)="showDetails(list.id)">
+          <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" (click)="showDetails(item)">
             Detalhes
           </button>
 

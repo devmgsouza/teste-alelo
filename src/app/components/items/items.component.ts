@@ -70,8 +70,8 @@ export class ItemsComponent implements OnInit {
 
   createItem() {
     this.formItems = this.formBuilder.group({
-       idCategorie: [{value: null}, [Validators.required ]],
-       idList: [{value: null}, [Validators.required ]]
+       idCategorie: [Validators.required ],
+       idList: [Validators.required ]
     });
   }
 
@@ -81,8 +81,8 @@ export class ItemsComponent implements OnInit {
     this.itemsAddService.open('0', '-1', '-1', '-1').then(
       response => {
         if (response) {
-          this.findLists() ;
           this.alertService.success('New Item Added.');
+          this.findItems();
         }
       }
     ).catch(
@@ -101,8 +101,8 @@ export class ItemsComponent implements OnInit {
     this.itemsAddService.open('1', this.formItems.get('idCategorie').value, item.listId , item.id).then(
       response => {
         if (response) {
-          this.findLists();
-          this.alertService.success('item Updated');
+          this.alertService.success('Item Updated.');
+          this.findItems();
         }
       }
     ).catch(
@@ -117,7 +117,7 @@ export class ItemsComponent implements OnInit {
   }
 
   showDetails(item: any) {
-    this.itemsAddService.open('2', this.formItems.get('idCategorie').value, item.listId, item.id).then(
+    this.itemsAddService.open('2', this.formItems.get('idCategorie').value, item.listId , item.id).then(
       response => {
       }
     ).catch(
