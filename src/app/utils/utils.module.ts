@@ -10,12 +10,14 @@ import { FilterPipe } from './pipe/filter.pipe';
 import { NullSearchComponent } from './null-search/null-search.component';
 
 
+
+
 @NgModule({
   declarations: [
     GridComponent,
     BoolPipePipe,
     FilterPipe,
-    NullSearchComponent
+    NullSearchComponent,
   ],
   imports: [
     CommonModule,

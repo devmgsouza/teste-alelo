@@ -24,7 +24,6 @@ export class ItemsComponent implements OnInit {
   listReadOnly = true;
   formItems: FormGroup;
   pesquisaVazia: boolean = false;
-  hasContent: boolean = false;
 
   constructor(
     private listsService: ListsService,
@@ -59,7 +58,6 @@ export class ItemsComponent implements OnInit {
           if (this.listOfLists.length === 0) {
             this.readOnly = true;
             this.pesquisaVazia = true;
-            this.hasContent = false;
           }
       }, err => {
          console.error(err);
@@ -72,11 +70,9 @@ export class ItemsComponent implements OnInit {
           this.listOfContent = response;
           if (this.listOfContent.length > 0) {
             this.readOnly = false;
-            this.hasContent = true;
             this.pesquisaVazia = false;
           } else {
             this.readOnly = true;
-            this.hasContent = false;
             this.pesquisaVazia = true;
           }
       }, err => {

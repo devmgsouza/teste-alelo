@@ -16,12 +16,11 @@ export class ListsComponent implements OnInit {
 
   titleOfTable = 'List of Lists';
   listOfContent: any[];
-  listOfCategories: any[];
+  listOfCategories: Categorie[];
   categorieId: string;
   readOnly = true;
   formList: FormGroup;
   pesquisaVazia: boolean = false;
-  hasContent: boolean = false;
   constructor(
     private listsService: ListsService,
     private categoriesService: CategoriesService,
@@ -41,25 +40,20 @@ export class ListsComponent implements OnInit {
          console.error(err);
       }
   );
-
-
-
-
   }
 
 
 
   findLists() {
+
     this.listsService.findAll(this.formList.get('idCategorie').value).subscribe(
       response => {
           this.listOfContent = response;
           if (this.listOfContent.length > 0) {
             this.readOnly = false;
-            this.hasContent = true;
             this.pesquisaVazia = false;
           } else {
             this.readOnly = true;
-            this.hasContent = false;
             this.pesquisaVazia = true;
           }
       }, err => {
@@ -69,12 +63,6 @@ export class ListsComponent implements OnInit {
 
 
 
-
-  createItem() {
-    this.formList = this.formBuilder.group({
-       idCategorie: [{value: null}, [Validators.required ]],
-    });
-  }
 
 
 
@@ -153,5 +141,14 @@ export class ListsComponent implements OnInit {
         }
     });
   }
+
+
+  createItem() {
+    this.formList = this.formBuilder.group({
+       idCategorie: [{value: null}, [Validators.required ]],
+       name: [{value: null}]
+    });
+  }
+
 
 }

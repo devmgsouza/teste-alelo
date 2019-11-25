@@ -37,14 +37,14 @@
 <app-grid [titleOfTable]="titleOfTable" 
  [listOfContent]="listOfContent"
  (newItemButton)="addNewItem($event)"
- *ngIf="hasContent != false"> 
+ > 
 
 
   <thead>
       <tr>
         <th class="text-center">#id</th>
         <th class="col-">Name</th>
-        <th class="text-center">List</th>
+        <th class="text-center"></th>
         <th class="text-center">Action</th>
       </tr>
   </thead>
@@ -52,7 +52,7 @@
       <tr *ngFor='let list of listOfContent | filter : searchText'>
         <td class="text-center">{{list.id}}</td>
         <td class="col-">{{list.name}}</td>
-        <td class="text-center">lista</td>
+        <td class="text-center"></td>
         <td class="text-center">
           <button class="mr-2 btn-icon btn-icon-only btn btn-outline-success" (click)="update(list)">
             Update
